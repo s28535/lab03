@@ -10,6 +10,12 @@ public class GasContainer : Container, IHazardNotifier
         this.pressure = pressure;
     }
 
+    private void CheckPressure()
+    {
+        if (pressure > 10)
+            NotifyDanger(SerialNumber);
+    }
+
     public void NotifyDanger(string containerSerialNumber)
     {
         Console.WriteLine($"Dangerous situation detected in container {containerSerialNumber}");
@@ -17,22 +23,6 @@ public class GasContainer : Container, IHazardNotifier
 
     public override void EmptyContainer()
     {
-        try
-        {
-            if (Weight > MaxWeight)
-            {
-                NotifyDanger(SerialNumber);
-                throw new InvalidOperationException("Overfilled container detected.");
-            }
-            else
-            {
-                Weight *= 0.95; // Leave 5% of the gas inside the container
-                base.EmptyContainer();
-            }
-        }
-        catch (InvalidOperationException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        Weight *= 0.05;
     }
 }

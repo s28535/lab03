@@ -19,7 +19,7 @@ public abstract class Container
         SerialNumber = $"KON-{serialLetter}-{ID++}";
     }
 
-    protected void EmptyContainer()
+    public virtual void EmptyContainer()
     {
         Weight = 0;
     }
